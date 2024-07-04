@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/features/auth/presentation/views/sign_up_view.dart';
+import 'package:instagram_clone/core/utils/app_router.dart';
+import 'package:instagram_clone/features/auth/presentation/views/sign_in_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +12,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: SignUpView(),
+      routerConfig: AppRouter.router,
     );
   }
 }
