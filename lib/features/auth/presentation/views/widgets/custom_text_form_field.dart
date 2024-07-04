@@ -5,12 +5,10 @@ class CustomTextFormField extends StatefulWidget {
       {super.key,
       required this.hint,
       required this.controller,
-      required this.focusNode,
       this.isPassword,
       required this.icon});
   final String hint;
   final TextEditingController controller;
-  final FocusNode focusNode;
   final bool? isPassword;
   final IconData icon;
 
@@ -24,7 +22,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      focusNode: widget.focusNode,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },

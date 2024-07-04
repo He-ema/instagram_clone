@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:instagram_clone/core/utils/app_router.dart';
 import 'package:instagram_clone/core/utils/app_styles.dart';
@@ -9,8 +8,8 @@ import 'package:instagram_clone/features/auth/presentation/views/widgets/custom_
 import 'package:instagram_clone/features/auth/presentation/views/widgets/custom_or_widget.dart';
 import 'package:instagram_clone/features/auth/presentation/views/widgets/custom_text_form_field.dart';
 
-class SignInViewBody extends StatelessWidget {
-  const SignInViewBody({super.key});
+class SignUpViewBody extends StatelessWidget {
+  const SignUpViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +34,22 @@ class SignInViewBody extends StatelessWidget {
                 height: 14,
               ),
               CustomTextFormField(
+                hint: 'user name',
+                controller: TextEditingController(),
+                icon: Icons.person_outline_rounded,
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              CustomTextFormField(
+                hint: 'Bio',
+                controller: TextEditingController(),
+                icon: Icons.info_outline,
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              CustomTextFormField(
                 hint: 'Password',
                 controller: TextEditingController(),
                 isPassword: true,
@@ -43,7 +58,7 @@ class SignInViewBody extends StatelessWidget {
               const SizedBox(
                 height: 14,
               ),
-              const CustomButton(title: 'Sign In'),
+              const CustomButton(title: 'Sign up'),
               const SizedBox(
                 height: 12,
               ),
@@ -51,23 +66,19 @@ class SignInViewBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Doesn\'t have an account?',
+                    'Already have an account?',
                     style: AppStyles.styleRegular12,
                   ),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context)
-                          .pushReplacement(AppRouter.signUpRoute);
+                      GoRouter.of(context).pushReplacement(AppRouter.homeRoute);
                     },
-                    child: Text(' Sign Up',
+                    child: Text(' Sign In',
                         style: AppStyles.styleRegular12
                             .copyWith(color: const Color(0xff23244F))),
                   ),
                 ],
               ),
-              const CustomOrWidget(),
-              const CustomButton(
-                  title: 'Sign up with Google', image: Assets.imagesFacebook),
             ],
           ),
         ),
