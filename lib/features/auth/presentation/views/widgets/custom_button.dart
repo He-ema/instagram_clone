@@ -3,9 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/utils/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.title, this.image});
+  const CustomButton(
+      {super.key, required this.title, this.image, this.onPressed});
   final String title;
   final String? image;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -18,7 +20,7 @@ class CustomButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             )),
-        onPressed: () {},
+        onPressed: onPressed,
         child: image == null
             ? Text(
                 title,
