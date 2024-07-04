@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/core/utils/app_styles.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField(
@@ -7,11 +6,13 @@ class CustomTextFormField extends StatefulWidget {
       required this.hint,
       required this.controller,
       required this.focusNode,
-      this.isPassword});
+      this.isPassword,
+      required this.icon});
   final String hint;
   final TextEditingController controller;
   final FocusNode focusNode;
   final bool? isPassword;
+  final IconData icon;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -47,9 +48,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     : const Icon(Icons.visibility_off),
               )
             : null,
-        prefixIcon: const Icon(
-          Icons.email,
-          color: Color(0xffC5C5C5),
+        prefixIcon: Icon(
+          widget.icon,
+          color: const Color(0xffC5C5C5),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,

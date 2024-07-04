@@ -31,6 +31,12 @@ class AppStyles {
     fontFamily: 'Roboto',
     color: Colors.black,
   );
+  static const TextStyle styleMedium12 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Roboto',
+    color: Colors.white,
+  );
   static const TextStyle styleMedium8 = TextStyle(
     fontSize: 8,
     fontWeight: FontWeight.w500,
