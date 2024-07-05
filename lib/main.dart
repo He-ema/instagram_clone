@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/utils/app_router.dart';
-import 'package:instagram_clone/features/auth/presentation/views/sign_in_view.dart';
 import 'package:instagram_clone/firebase_options.dart';
 
 void main() async {
