@@ -18,20 +18,20 @@ class BottomNavigationBarView extends StatefulWidget {
 class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
   int _currentIndex = 0;
 
-  late PageController _pageController;
+  late PageController pageController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pageController = PageController();
+    pageController = PageController();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _pageController.dispose();
+    pageController.dispose();
   }
 
   onPageChanged(int page) {
@@ -41,7 +41,7 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
   }
 
   navigationTapped(int page) {
-    _pageController.jumpToPage(page);
+    pageController.jumpToPage(page);
   }
 
   @override
@@ -56,26 +56,46 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
           onTap: navigationTapped,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.imagesHome),
+              icon: SvgPicture.asset(
+                Assets.imagesHome,
+                colorFilter: ColorFilter.mode(
+                    _currentIndex == 0 ? Colors.black : Colors.grey,
+                    BlendMode.srcIn),
+              ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.imagesSearch),
-              label: '',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.camera),
+              icon: SvgPicture.asset(
+                Assets.imagesSearch,
+                colorFilter: ColorFilter.mode(
+                    _currentIndex == 1 ? Colors.black : Colors.grey,
+                    BlendMode.srcIn),
+              ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.imagesProfile),
+              icon: SvgPicture.asset(
+                Assets.imagesReels,
+                colorFilter: ColorFilter.mode(
+                    _currentIndex == 2 ? Colors.black : Colors.grey,
+                    BlendMode.srcIn),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.imagesProfile,
+                colorFilter: ColorFilter.mode(
+                    _currentIndex == 3 ? Colors.black : Colors.grey,
+                    BlendMode.srcIn),
+              ),
               label: '',
             ),
           ],
         ),
       ),
       body: PageView(
-        controller: _pageController,
+        controller: pageController,
         onPageChanged: onPageChanged,
         children: const [
           HomeView(),

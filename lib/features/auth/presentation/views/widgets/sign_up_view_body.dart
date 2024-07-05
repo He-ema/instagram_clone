@@ -58,7 +58,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             title: state.errorHeader,
             description: state.errorMessage,
           );
-        } else {}
+        } else {
+          isLoading = false;
+          setState(() {});
+          GoRouter.of(context)
+              .pushReplacement(AppRouter.bottomNavigationBarRoute);
+        }
       },
       child: ModalProgressHUD(
         inAsyncCall: isLoading,
@@ -135,7 +140,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                               title: 'Error',
                               description: 'Please select an image',
                             );
-                            print('please select an image');
                           } else {
                             await BlocProvider.of<AuthCubit>(context)
                                 .signUpwithEmail(

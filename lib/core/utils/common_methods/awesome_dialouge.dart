@@ -3,10 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/features/auth/presentation/views/widgets/custom_button.dart';
 
-void showAwesomeDialouge(BuildContext context,
-    {required String title,
-    required String description,
-    @required DialogType? dialogType}) {
+void showAwesomeDialouge(
+  BuildContext context, {
+  required String title,
+  required String description,
+}) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(

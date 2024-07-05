@@ -11,6 +11,10 @@ class ReelsView extends StatefulWidget {
 class _ReelsViewState extends State<ReelsView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: Center(
+        child: Text('Explore'),
+      ),
+    );
   }
 }
