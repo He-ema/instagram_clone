@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:meta/meta.dart';
 
@@ -13,6 +15,9 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signUpwithEmail({
     required String email,
     required String password,
+    required String userName,
+    required String bio,
+    required File image,
   }) async {
     emit(AuthLoading());
     try {
@@ -21,6 +26,12 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
+      print('auth done ');
+      String file = await uploadImageToFirebase(image: image, email: email);
+      print('upload done ');
+
+      await createUser(email: email, userName: userName, bio: bio, image: file);
+      print('creating done ');
 
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
@@ -77,14 +88,24 @@ class AuthCubit extends Cubit<AuthState> {
       CollectionReference users =
           FirebaseFirestore.instance.collection(kUsersCollectionReference);
 
-      users.doc(email).set({
+      await users.doc(email).set({
         kEmail: email,
         kUserName: userName,
         kBio: bio,
         kImage: image,
+        kFollowers: [],
+        kFollowing: [],
       });
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<String> uploadImageToFirebase(
+      {required File image, required String email}) async {
+    final ref = FirebaseStorage.instance.ref().child(email);
+    await ref.putFile(image);
+    final url = await ref.getDownloadURL();
+    return url;
   }
 }

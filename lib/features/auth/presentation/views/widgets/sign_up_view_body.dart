@@ -127,10 +127,28 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     ),
                     CustomButton(
                       title: 'Sign up',
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          if (image == null) {
+                            showAwesomeDialouge(
+                              context,
+                              title: 'Error',
+                              description: 'Please select an image',
+                            );
+                            print('please select an image');
+                          } else {
+                            await BlocProvider.of<AuthCubit>(context)
+                                .signUpwithEmail(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              userName: _userNameController.text,
+                              bio: _bioController.text,
+                              image: image!,
+                            );
+                          }
                         } else {
                           _autovalidateMode = AutovalidateMode.always;
+                          setState(() {});
                         }
                       },
                     ),
