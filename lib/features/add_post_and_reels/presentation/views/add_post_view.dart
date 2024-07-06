@@ -70,15 +70,11 @@ class _AddPostViewState extends State<AddPostView> {
     }
   }
 
-  fetchNewMediaDelayed() async {
-    await _fetchNewMedia();
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchNewMediaDelayed();
+    _fetchNewMedia();
   }
 
   int indexx = 0;
