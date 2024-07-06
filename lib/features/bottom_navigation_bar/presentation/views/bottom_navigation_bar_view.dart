@@ -7,6 +7,8 @@ import 'package:instagram_clone/features/home/presentation/views/home_view.dart'
 import 'package:instagram_clone/features/profile/presentation/views/profile_view.dart';
 import 'package:instagram_clone/features/reels/presentation/views/reels_view.dart';
 
+import '../../../add_post_and_reels/presentation/views/add_view.dart';
+
 class BottomNavigationBarView extends StatefulWidget {
   const BottomNavigationBarView({super.key});
 
@@ -74,10 +76,15 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
               label: '',
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.camera,
+                  color: _currentIndex == 2 ? Colors.black : Colors.grey),
+              label: '',
+            ),
+            BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 Assets.imagesReels,
                 colorFilter: ColorFilter.mode(
-                    _currentIndex == 2 ? Colors.black : Colors.grey,
+                    _currentIndex == 3 ? Colors.black : Colors.grey,
                     BlendMode.srcIn),
               ),
               label: '',
@@ -86,7 +93,7 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
               icon: SvgPicture.asset(
                 Assets.imagesProfile,
                 colorFilter: ColorFilter.mode(
-                    _currentIndex == 3 ? Colors.black : Colors.grey,
+                    _currentIndex == 4 ? Colors.black : Colors.grey,
                     BlendMode.srcIn),
               ),
               label: '',
@@ -100,6 +107,7 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
         children: const [
           HomeView(),
           ExploreView(),
+          AddView(),
           ReelsView(),
           ProfileView(),
         ],
