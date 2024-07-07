@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:instagram_clone/core/utils/app_router.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class AddPostView extends StatefulWidget {
@@ -82,15 +84,23 @@ class _AddPostViewState extends State<AddPostView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
         title: const Text('New Post'),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              'Next',
-              style: TextStyle(fontSize: 16, color: Colors.blue),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {
+                GoRouter.of(context)
+                    .push(AppRouter.addPostDetailsView, extra: _file);
+              },
+              child: const Text(
+                'Next',
+                style: TextStyle(fontSize: 16, color: Colors.blue),
+              ),
             ),
           )
         ],
@@ -145,6 +155,7 @@ class _AddPostViewState extends State<AddPostView> {
                     onTap: () {
                       setState(() {
                         indexx = index;
+                        _file = path[index];
                       });
                     },
                     child: _mediaList[index]);
