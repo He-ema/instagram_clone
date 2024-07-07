@@ -20,24 +20,29 @@ class AddPostCubit extends Cubit<AddPostState> {
     required String location,
   }) async {
     emit(AddPostLoading());
-    var uid = const Uuid().v4();
-    String image = await uploadImageToFirebase(image: postImage, id: uid);
-    DateTime date = DateTime.now();
-    UserModel userModel = await getUser();
-    CollectionReference posts =
-        FirebaseFirestore.instance.collection(kPostsCollectionReference);
-    posts.doc(uid).set({
-      kImage: image,
-      kCaption: caption,
-      kLocation: location,
-      kEmail: userModel.email,
-      kUserName: userModel.userName,
-      kUserId: FirebaseAuth.instance.currentUser!.uid,
-      kUserProfileImage: userModel.image,
-      kDate: date,
-      kPostId: uid,
-      kLikes: [],
-    });
+    try {
+      var uid = const Uuid().v4();
+      String image = await uploadImageToFirebase(image: postImage, id: uid);
+      DateTime date = DateTime.now();
+      UserModel userModel = await getUser();
+      CollectionReference posts =
+          FirebaseFirestore.instance.collection(kPostsCollectionReference);
+      await posts.doc(uid).set({
+        kImage: image,
+        kCaption: caption,
+        kLocation: location,
+        kEmail: userModel.email,
+        kUserName: userModel.userName,
+        kUserId: FirebaseAuth.instance.currentUser!.uid,
+        kUserProfileImage: userModel.image,
+        kDate: date,
+        kPostId: uid,
+        kLikes: [],
+      });
+      emit(AddPostSuccess());
+    } catch (e) {
+      emit(AddPostFailure(errorMessage: e.toString()));
+    }
   }
 
   Future<UserModel> getUser() async {
