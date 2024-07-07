@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart';
 import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/cubit/add_post_cubit.dart';
 
 import '../../../../core/utils/common_methods/awesome_dialouge.dart';
@@ -78,8 +79,8 @@ class _AddPostDetailsViewState extends State<AddPostDetailsView> {
       ),
       body: isLoading
           ? const Center(
-              child: SpinKitWave(
-                color: Colors.blue,
+              child: InstagramLoader(
+                child: CircularProgressIndicator(),
               ),
             )
           : AddPostDetailsViewBdoy(
