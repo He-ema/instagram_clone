@@ -7,6 +7,7 @@ import 'package:instagram_clone/features/add_post_and_reels/presentation/views/a
 import 'package:instagram_clone/features/auth/presentation/views/sign_in_view.dart';
 import 'package:instagram_clone/features/auth/presentation/views/sign_up_view.dart';
 import 'package:instagram_clone/features/bottom_navigation_bar/presentation/views/bottom_navigation_bar_view.dart';
+import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
 
 abstract class AppRouter {
   static const homeRoute = '/';
@@ -26,7 +27,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: bottomNavigationBarRoute,
-        builder: (context, state) => const BottomNavigationBarView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => GetPostsCubitCubit(),
+          child: const BottomNavigationBarView(),
+        ),
       ),
       GoRoute(
         path: addPostDetailsView,

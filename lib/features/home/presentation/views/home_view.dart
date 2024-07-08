@@ -31,10 +31,7 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocProvider(
-        create: (context) => GetPostsCubitCubit(),
-        child: const HomeViewBody(),
-      ),
+      body: const HomeViewBody(),
     );
   }
 }
