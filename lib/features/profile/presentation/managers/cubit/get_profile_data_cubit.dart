@@ -27,15 +27,15 @@ class GetProfileDataCubit extends Cubit<GetProfileDataState> {
   Future<List<PostModel>> getPosts() async {
     CollectionReference chat =
         FirebaseFirestore.instance.collection(kPostsCollectionReference);
-    chat
+    QuerySnapshot querySnapshot = await chat
         .where(kUserId, isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .snapshots()
-        .listen((event) {
-      posts.clear();
-      for (var doc in event.docs) {
-        posts.add(PostModel.fromJson(doc));
-      }
-    });
+        .get();
+
+    posts.clear();
+    for (var doc in querySnapshot.docs) {
+      posts.add(PostModel.fromJson(doc.data()));
+    }
+
     return posts;
   }
 

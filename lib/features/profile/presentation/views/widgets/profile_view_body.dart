@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:instagram_clone/core/utils/app_router.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
 import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart';
@@ -32,8 +34,15 @@ class ProfileViewBody extends StatelessWidget {
                   ),
                   itemCount: state.posts.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      child: CachedImage(imageUrl: state.posts[index].image),
+                    return GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).push(
+                            AppRouter.profilePostViewRoute,
+                            extra: state.posts[index]);
+                      },
+                      child: Container(
+                        child: CachedImage(imageUrl: state.posts[index].image),
+                      ),
                     );
                   },
                 ),

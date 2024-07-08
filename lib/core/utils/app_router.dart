@@ -7,13 +7,16 @@ import 'package:instagram_clone/features/add_post_and_reels/presentation/views/a
 import 'package:instagram_clone/features/auth/presentation/views/sign_in_view.dart';
 import 'package:instagram_clone/features/auth/presentation/views/sign_up_view.dart';
 import 'package:instagram_clone/features/bottom_navigation_bar/presentation/views/bottom_navigation_bar_view.dart';
+import 'package:instagram_clone/features/home/data/models/post_model.dart';
 import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
+import 'package:instagram_clone/features/profile/presentation/views/profile_post_view.dart';
 
 abstract class AppRouter {
   static const homeRoute = '/';
   static const signUpRoute = '/signUp';
   static const bottomNavigationBarRoute = '/BottomNavigationBar';
   static const addPostDetailsView = '/addPostDetailsView';
+  static const profilePostViewRoute = '/profilePostView';
 
   static final router = GoRouter(
     routes: [
@@ -39,6 +42,12 @@ abstract class AppRouter {
           child: AddPostDetailsView(
             file: state.extra as File,
           ),
+        ),
+      ),
+      GoRoute(
+        path: profilePostViewRoute,
+        builder: (context, state) => ProfilePostView(
+          post: state.extra as PostModel,
         ),
       ),
     ],
