@@ -4,9 +4,10 @@ import 'package:instagram_clone/core/utils/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
-      {super.key, required this.title, this.image, this.onPressed});
+      {super.key, required this.title, this.image, this.onPressed, this.color});
   final String title;
   final String? image;
+  final Color? color;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomButton extends StatelessWidget {
       height: 45,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xff1877F2),
+            backgroundColor: color ?? const Color(0xff1877F2),
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
@@ -24,7 +25,12 @@ class CustomButton extends StatelessWidget {
         child: image == null
             ? Text(
                 title,
-                style: AppStyles.styleMedium12,
+                style: color == null
+                    ? AppStyles.styleMedium12
+                    : const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,

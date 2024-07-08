@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/features/profile/presentation/views/widgets/profile_view_body.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -11,9 +12,11 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Profile'),
+    return const DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(child: ProfileViewBody()),
       ),
     );
   }
