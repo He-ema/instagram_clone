@@ -28,7 +28,6 @@ class GetProfileDataCubit extends Cubit<GetProfileDataState> {
     CollectionReference chat =
         FirebaseFirestore.instance.collection(kPostsCollectionReference);
     chat
-        .orderBy(kDate, descending: true)
         .where(kUserId, isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .snapshots()
         .listen((event) {
