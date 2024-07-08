@@ -7,8 +7,20 @@ import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart'
 import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/home/presentation/views/widgets/posts_list.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
+
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<GetPostsCubitCubit>(context).getPosts();
+  }
 
   @override
   Widget build(BuildContext context) {

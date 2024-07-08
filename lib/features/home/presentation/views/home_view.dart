@@ -6,14 +6,10 @@ import 'package:instagram_clone/core/utils/assets.dart';
 import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/home/presentation/views/widgets/home_view_body.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       body: BlocProvider(
-        create: (context) => GetPostsCubitCubit()..getPosts(),
+        create: (context) => GetPostsCubitCubit(),
         child: const HomeViewBody(),
       ),
     );
