@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram_clone/constants.dart';
 
 class PostModel {
@@ -9,7 +10,7 @@ class PostModel {
   final String email;
   final String userId;
   final String postId;
-  final DateTime date;
+  final Timestamp date;
   final List likes;
 
   PostModel(

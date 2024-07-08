@@ -1,16 +1,20 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
 
 import '../../../../../core/utils/app_styles.dart';
 import '../../../../../core/utils/assets.dart';
+import '../../../data/models/post_model.dart';
 
 class PostItem extends StatelessWidget {
   const PostItem({
     super.key,
+    required this.post,
   });
-
+  final PostModel post;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,15 +27,17 @@ class PostItem extends StatelessWidget {
               child: SizedBox(
                   width: 35,
                   height: 35,
-                  child: Image.asset(Assets.imagesPreson)),
+                  child: CachedImage(imageUrl: post.profileImage)),
             ),
-            title: const Text(
-              'Username',
-              style: AppStyles.styleRegular14,
+            title: Text(
+              post.username,
+              style: AppStyles.styleRegular14.copyWith(color: Colors.black),
             ),
-            subtitle: const Text(
-              'location',
-              style: AppStyles.styleRegular12,
+            subtitle: Text(
+              post.location,
+              style: AppStyles.styleRegular12.copyWith(
+                color: const Color(0xff7D7D7D),
+              ),
             ),
             trailing: const Icon(Icons.more_horiz, color: Colors.black),
           ),
@@ -42,10 +48,7 @@ class PostItem extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: MediaQuery.sizeOf(context).height * 0.45,
-          child: Image.asset(
-            Assets.imagesPost,
-            fit: BoxFit.cover,
-          ),
+          child: CachedImage(imageUrl: post.image),
         ),
         Container(
           margin: const EdgeInsets.all(15),
@@ -74,19 +77,26 @@ class PostItem extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              const Row(
+              Row(
                 children: [
                   Text(
-                    'Username ',
-                    style: TextStyle(
+                    ' likes ${post.likes.length}',
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    '${post.username} ',
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    'caption',
-                    style: TextStyle(
+                    post.caption,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
@@ -97,11 +107,11 @@ class PostItem extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'date',
-                  style: TextStyle(
+                  formatDate(post.date.toDate(), [yyyy, '-', mm, '-', dd]),
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 11,
                     fontWeight: FontWeight.normal,

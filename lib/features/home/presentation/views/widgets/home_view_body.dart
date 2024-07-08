@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/utils/app_styles.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
+import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart';
+import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/home/presentation/views/widgets/posts_list.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -9,14 +12,33 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
+    return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: Divider(
             color: Color(0xffE0E0E0),
           ),
         ),
-        PostsList(),
+        BlocBuilder<GetPostsCubitCubit, GetPostsCubitState>(
+          builder: (context, state) {
+            if (state is GetPostsCubitSuccess) {
+              return PostsList(
+                state: state,
+              );
+            } else if (state is GetPostsCubitFailure) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: Text("No Posts Found"),
+                ),
+              );
+            } else {
+              return const SliverFillRemaining(
+                  child: Center(
+                      child:
+                          InstagramLoader(child: CircularProgressIndicator())));
+            }
+          },
+        ),
       ],
     );
   }

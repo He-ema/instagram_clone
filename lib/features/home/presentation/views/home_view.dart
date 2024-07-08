@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
+import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/home/presentation/views/widgets/home_view_body.dart';
 
 class HomeView extends StatefulWidget {
@@ -33,7 +35,10 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: const HomeViewBody(),
+      body: BlocProvider(
+        create: (context) => GetPostsCubitCubit()..getPosts(),
+        child: const HomeViewBody(),
+      ),
     );
   }
 }
