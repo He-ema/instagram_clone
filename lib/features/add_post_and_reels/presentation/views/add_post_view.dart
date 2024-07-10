@@ -26,8 +26,8 @@ class _AddPostViewState extends State<AddPostView> {
     lastPage = currentPage;
     final PermissionState ps = await PhotoManager.requestPermissionExtend();
     if (ps.isAuth) {
-      List<AssetPathEntity> album =
-          await PhotoManager.getAssetPathList(onlyAll: true);
+      List<AssetPathEntity> album = await PhotoManager.getAssetPathList(
+          type: RequestType.image, onlyAll: true);
       List<AssetEntity> media =
           await album[0].getAssetListPaged(page: currentPage, size: 60);
 
