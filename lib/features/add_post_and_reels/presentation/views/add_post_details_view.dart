@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart';
-import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/cubit/add_post_cubit.dart';
+import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/add_post_cubit/add_post_cubit.dart';
 
 import '../../../../core/utils/common_methods/awesome_dialouge.dart';
 import 'widgets/add_post_details_view_body.dart';

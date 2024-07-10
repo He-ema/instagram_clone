@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram_clone/constants.dart';
-import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/cubit/add_post_cubit.dart';
+import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/add_post_cubit/add_post_cubit.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/models/post_model.dart';

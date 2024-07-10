@@ -100,10 +100,12 @@ class _AddReelsViewState extends State<AddReelsView> {
           ),
         );
       }
-      setState(() {
-        _mediaList.addAll(temp);
-        currentPage++;
-      });
+      if (mounted) {
+        setState(() {
+          _mediaList.addAll(temp);
+          currentPage++;
+        });
+      }
     }
   }
 

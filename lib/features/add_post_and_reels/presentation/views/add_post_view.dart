@@ -65,10 +65,12 @@ class _AddPostViewState extends State<AddPostView> {
           ),
         );
       }
-      setState(() {
-        _mediaList.addAll(temp);
-        currentPage++;
-      });
+      if (mounted) {
+        setState(() {
+          _mediaList.addAll(temp);
+          currentPage++;
+        });
+      }
     }
   }
 

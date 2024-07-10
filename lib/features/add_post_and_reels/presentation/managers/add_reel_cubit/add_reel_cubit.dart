@@ -15,18 +15,18 @@ part 'add_reel_state.dart';
 class AddReelCubit extends Cubit<AddReelState> {
   AddReelCubit() : super(AddReelInitial());
 
-  Future<void> createPost({
+  Future<void> createReel({
     required File reelVideo,
     required String caption,
   }) async {
     emit(AddReelLoading());
     try {
       var uid = const Uuid().v4();
-      String videoURL = await uploadImageToFirebase(video: reelVideo, id: uid);
+      String videoURL = await uploadVideoToFirebase(video: reelVideo, id: uid);
       DateTime date = DateTime.now();
       UserModel userModel = await getUser();
       CollectionReference posts =
-          FirebaseFirestore.instance.collection(kPostsCollectionReference);
+          FirebaseFirestore.instance.collection(kReelsCollectionReference);
       await posts.doc(uid).set({
         kReelVideo: videoURL,
         kCaption: caption,
@@ -55,7 +55,7 @@ class AddReelCubit extends Cubit<AddReelState> {
     return userModel;
   }
 
-  Future<String> uploadImageToFirebase(
+  Future<String> uploadVideoToFirebase(
       {required File video, required String id}) async {
     final ref = FirebaseStorage.instance.ref().child(id);
     await ref.putFile(video);

@@ -1,4 +1,5 @@
 const kUsersCollectionReference = 'users';
+const kReelsCollectionReference = 'reels';
 const kEmail = 'email';
 const kUserName = 'userName';
 const kBio = 'bio';

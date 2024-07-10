@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/add_reel_cubit/add_reel_cubit.dart';
 import 'package:instagram_clone/features/add_post_and_reels/presentation/views/widgets/add_reels_detials_view_body.dart';
 
 class AddReelsDetailsView extends StatelessWidget {
@@ -19,8 +21,11 @@ class AddReelsDetailsView extends StatelessWidget {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
       ),
-      body: AddReelsDetailsViewBody(
-        videoFile: videoFile,
+      body: BlocProvider(
+        create: (context) => AddReelCubit(),
+        child: AddReelsDetailsViewBody(
+          videoFile: videoFile,
+        ),
       ),
     );
   }

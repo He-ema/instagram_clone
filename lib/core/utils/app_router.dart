@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/cubit/add_post_cubit.dart';
+import 'package:instagram_clone/features/add_post_and_reels/presentation/managers/add_post_cubit/add_post_cubit.dart';
 import 'package:instagram_clone/features/add_post_and_reels/presentation/views/add_post_details_view.dart';
 import 'package:instagram_clone/features/add_post_and_reels/presentation/views/add_reels_details_view.dart';
 import 'package:instagram_clone/features/auth/presentation/views/sign_in_view.dart';
