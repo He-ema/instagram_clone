@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:instagram_clone/core/utils/app_router.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'dart:io';
 
@@ -51,6 +53,44 @@ class _AddReelsViewState extends State<AddReelsView> {
                         snapshot.data!,
                         fit: BoxFit.cover,
                       )),
+                      if (asset.type == AssetType.video)
+                        Align(
+                          alignment: FractionalOffset.bottomRight,
+                          child: Container(
+                            // color: Colors.white.withOpacity(0.5),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                right: 10,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    asset.videoDuration.inMinutes.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    asset.videoDuration.inSeconds.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 );
@@ -98,7 +138,16 @@ class _AddReelsViewState extends State<AddReelsView> {
           mainAxisSpacing: 5,
         ),
         itemBuilder: (context, index) {
-          return _mediaList[index];
+          return GestureDetector(
+              onTap: () {
+                setState(() {
+                  indexx = index;
+                  _file = path[index];
+                  GoRouter.of(context)
+                      .push(AppRouter.addReelsDetailsViewRoute, extra: _file);
+                });
+              },
+              child: _mediaList[index]);
         },
       ),
     );
