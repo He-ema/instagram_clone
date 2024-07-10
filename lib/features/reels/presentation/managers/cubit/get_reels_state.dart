@@ -7,7 +7,11 @@ final class GetReelsInitial extends GetReelsState {}
 
 final class GetReelsLoading extends GetReelsState {}
 
-final class GetReelsFailure extends GetReelsState {}
+final class GetReelsFailure extends GetReelsState {
+  final String errorMessage;
+
+  GetReelsFailure({required this.errorMessage});
+}
 
 final class GetReelsSuccess extends GetReelsState {
   final List<ReelModel> reels;
