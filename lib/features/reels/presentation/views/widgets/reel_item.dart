@@ -47,14 +47,7 @@ class _ReelItemState extends State<ReelItem> {
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              play = !play;
-            });
-            if (play) {
-              controller.play();
-            } else {
-              controller.pause();
-            }
+            changePlayingState();
           },
           child: controller.value.isInitialized
               ? SizedBox(
@@ -69,14 +62,19 @@ class _ReelItemState extends State<ReelItem> {
                 ),
         ),
         if (!play)
-          const Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.white24,
-              radius: 35,
-              child: Icon(
-                Icons.play_arrow,
-                size: 35,
-                color: Colors.white,
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                changePlayingState();
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.white24,
+                radius: 35,
+                child: Icon(
+                  Icons.play_arrow,
+                  size: 35,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -195,5 +193,16 @@ class _ReelItemState extends State<ReelItem> {
         ),
       ],
     );
+  }
+
+  void changePlayingState() {
+    setState(() {
+      play = !play;
+    });
+    if (play) {
+      controller.play();
+    } else {
+      controller.pause();
+    }
   }
 }
