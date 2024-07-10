@@ -3,6 +3,7 @@ const kEmail = 'email';
 const kUserName = 'userName';
 const kBio = 'bio';
 const kImage = 'image';
+const kReelVideo = 'ReelVideo';
 const kFollowers = 'followers';
 const kFollowing = 'following';
 const kCaption = 'caption';
