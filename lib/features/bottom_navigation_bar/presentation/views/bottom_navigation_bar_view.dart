@@ -46,7 +46,8 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            _currentIndex == 3 ? const Color(0xff1c1e21) : Colors.white,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
@@ -80,7 +81,7 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
             icon: SvgPicture.asset(
               Assets.imagesReels,
               colorFilter: ColorFilter.mode(
-                  _currentIndex == 3 ? Colors.black : Colors.grey,
+                  _currentIndex == 3 ? Colors.white : Colors.grey,
                   BlendMode.srcIn),
             ),
             label: '',
