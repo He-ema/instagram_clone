@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_clone/features/explore/presentation/managers/explore_cubit/explore_cubit.dart';
 import 'package:instagram_clone/features/explore/presentation/views/widgets/explore_view_body.dart';
 
 class ExploreView extends StatefulWidget {
@@ -12,9 +14,13 @@ class ExploreView extends StatefulWidget {
 class _ExploreViewState extends State<ExploreView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(child: ExploreViewBody()),
+      body: SafeArea(
+          child: BlocProvider(
+        create: (context) => ExploreCubit(),
+        child: const ExploreViewBody(),
+      )),
     );
   }
 }
