@@ -141,6 +141,7 @@ class _ReelItemState extends State<ReelItem> {
           bottom: 40,
           left: 10,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [

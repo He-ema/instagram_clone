@@ -14,7 +14,8 @@ class GetReelsCubit extends Cubit<GetReelsState> {
     try {
       CollectionReference reelsCollection =
           FirebaseFirestore.instance.collection(kReelsCollectionReference);
-      QuerySnapshot reelsSnapshot = await reelsCollection.orderBy(kDate).get();
+      QuerySnapshot reelsSnapshot =
+          await reelsCollection.orderBy(kDate, descending: true).get();
       List<ReelModel> reels = reelsSnapshot.docs
           .map((e) => ReelModel.fromJson(e.data() as Map<String, dynamic>))
           .toList();

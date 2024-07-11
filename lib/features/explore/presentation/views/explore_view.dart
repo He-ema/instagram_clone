@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/features/explore/presentation/views/widgets/explore_view_body.dart';
 
 class ExploreView extends StatefulWidget {
   const ExploreView({super.key});
@@ -12,9 +13,8 @@ class _ExploreViewState extends State<ExploreView> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text('Explore'),
-      ),
+      backgroundColor: Colors.white,
+      body: SafeArea(child: ExploreViewBody()),
     );
   }
 }
