@@ -9,7 +9,7 @@ import 'package:instagram_clone/features/auth/presentation/views/sign_in_view.da
 import 'package:instagram_clone/features/auth/presentation/views/sign_up_view.dart';
 import 'package:instagram_clone/features/bottom_navigation_bar/presentation/views/bottom_navigation_bar_view.dart';
 import 'package:instagram_clone/features/home/data/models/post_model.dart';
-import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
+import 'package:instagram_clone/features/home/presentation/managers/get_posts_cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/profile/presentation/views/profile_post_view.dart';
 
 abstract class AppRouter {

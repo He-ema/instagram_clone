@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/core/utils/app_styles.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
 import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart';
-import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
+import 'package:instagram_clone/features/home/presentation/managers/get_posts_cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/home/presentation/views/widgets/posts_list.dart';
 
 class HomeViewBody extends StatefulWidget {

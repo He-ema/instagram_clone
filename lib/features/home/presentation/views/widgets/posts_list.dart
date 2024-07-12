@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/features/home/presentation/managers/cubit/get_posts_cubit_cubit.dart';
+import 'package:instagram_clone/features/home/presentation/managers/get_posts_cubit/get_posts_cubit_cubit.dart';
 
 import 'post_item.dart';
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
+import 'package:instagram_clone/features/home/presentation/views/widgets/comments.dart';
 
 import '../../../../../core/utils/app_styles.dart';
 import '../../../../../core/utils/assets.dart';
@@ -64,7 +65,31 @@ class PostItem extends StatelessWidget {
                       const SizedBox(
                         width: 15,
                       ),
-                      SvgPicture.asset(Assets.imagesComment),
+                      GestureDetector(
+                          onTap: () {
+                            showBottomSheet(
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: DraggableScrollableSheet(
+                                    expand: false,
+                                    maxChildSize: 0.7,
+                                    initialChildSize: 0.7,
+                                    minChildSize: 0.2,
+                                    builder: (context, scrollController) {
+                                      return const Comments();
+                                    },
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: SvgPicture.asset(Assets.imagesComment)),
                       const SizedBox(
                         width: 15,
                       ),
