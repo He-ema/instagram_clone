@@ -44,17 +44,17 @@ class _CommentsState extends State<Comments> {
                 color: Colors.black,
               ),
             ),
-            const SizedBox(
-              height: 12,
-            ),
             BlocBuilder<GetCommentsCubit, GetCommentsState>(
               builder: (context, state) {
                 if (state is GetCommentsSuccess) {
-                  return ListView.builder(
-                    itemCount: state.comments.length,
-                    itemBuilder: (context, index) {
-                      return CommentItem(comment: state.comments[index]);
-                    },
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: ListView.builder(
+                      itemCount: state.comments.length,
+                      itemBuilder: (context, index) {
+                        return CommentItem(comment: state.comments[index]);
+                      },
+                    ),
                   );
                 } else {
                   return const SizedBox();
@@ -70,6 +70,8 @@ class _CommentsState extends State<Comments> {
                     child: TextField(
                       controller: comment,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         contentPadding: const EdgeInsets.all(10),
                         suffixIcon: GestureDetector(
                           onTap: () async {
