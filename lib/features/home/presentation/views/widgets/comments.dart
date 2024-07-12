@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_clone/features/home/presentation/managers/add_comment_cubit/comment_cubit.dart';
+import 'package:instagram_clone/features/home/presentation/managers/get_comments_cubit/get_comments_cubit.dart';
+import 'package:instagram_clone/features/home/presentation/views/widgets/comment_item.dart';
 
 class Comments extends StatefulWidget {
   const Comments({super.key, required this.type, required this.uid});
@@ -12,6 +14,17 @@ class Comments extends StatefulWidget {
 
 class _CommentsState extends State<Comments> {
   final TextEditingController comment = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (mounted) {
+      BlocProvider.of<GetCommentsCubit>(context)
+          .getComments(type: widget.type, uuid: widget.uid);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -31,6 +44,23 @@ class _CommentsState extends State<Comments> {
                 color: Colors.black,
               ),
             ),
+            const SizedBox(
+              height: 12,
+            ),
+            BlocBuilder<GetCommentsCubit, GetCommentsState>(
+              builder: (context, state) {
+                if (state is GetCommentsSuccess) {
+                  return ListView.builder(
+                    itemCount: state.comments.length,
+                    itemBuilder: (context, index) {
+                      return CommentItem(comment: state.comments[index]);
+                    },
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
             Positioned(
               bottom: 0,
               child: Row(
@@ -42,12 +72,13 @@ class _CommentsState extends State<Comments> {
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(10),
                         suffixIcon: GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (comment.text.isNotEmpty) {
-                              BlocProvider.of<CommentCubit>(context).addComment(
-                                  comment: comment.text,
-                                  type: widget.type,
-                                  uuid: widget.uid);
+                              await BlocProvider.of<CommentCubit>(context)
+                                  .addComment(
+                                      comment: comment.text,
+                                      type: widget.type,
+                                      uuid: widget.uid);
                               comment.clear();
                             }
                           },

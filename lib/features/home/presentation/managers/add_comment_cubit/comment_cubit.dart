@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/features/add_post_and_reels/data/models/user_model.dart';
+import 'package:instagram_clone/features/home/data/models/comment_model.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
@@ -16,7 +17,6 @@ class CommentCubit extends Cubit<CommentState> {
     required String type,
     required String uuid,
   }) async {
-    emit(CommentLoading());
     try {
       var uid = const Uuid().v4();
       UserModel user = await getUser();

@@ -13,4 +13,8 @@ final class CommentFailure extends CommentState {
   CommentFailure({required this.errorMessage});
 }
 
-final class CommentSuccess extends CommentState {}
+final class CommentSuccess extends CommentState {
+  final List<CommentModel>? comments;
+
+  CommentSuccess({@required this.comments});
+}
