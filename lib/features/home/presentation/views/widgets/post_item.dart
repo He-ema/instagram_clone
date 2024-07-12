@@ -2,8 +2,11 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
+import 'package:instagram_clone/features/home/presentation/managers/add_comment_cubit/comment_cubit.dart';
 import 'package:instagram_clone/features/home/presentation/views/widgets/comments.dart';
 
 import '../../../../../core/utils/app_styles.dart';
@@ -82,7 +85,13 @@ class PostItem extends StatelessWidget {
                                     initialChildSize: 0.7,
                                     minChildSize: 0.2,
                                     builder: (context, scrollController) {
-                                      return const Comments();
+                                      return BlocProvider(
+                                        create: (context) => CommentCubit(),
+                                        child: Comments(
+                                          type: kPostsCollectionReference,
+                                          uid: post.postId,
+                                        ),
+                                      );
                                     },
                                   ),
                                 );

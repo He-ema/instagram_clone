@@ -6,17 +6,17 @@ import 'package:instagram_clone/features/add_post_and_reels/data/models/user_mod
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
-part 'add_comment_state.dart';
+part 'comment_state.dart';
 
-class AddCommentCubit extends Cubit<AddCommentState> {
-  AddCommentCubit() : super(AddCommentInitial());
+class CommentCubit extends Cubit<CommentState> {
+  CommentCubit() : super(CommentInitial());
 
   Future<void> addComment({
     required String comment,
     required String type,
     required String uuid,
   }) async {
-    emit(AddCommentLoading());
+    emit(CommentLoading());
     try {
       var uid = const Uuid().v4();
       UserModel user = await getUser();
@@ -32,9 +32,9 @@ class AddCommentCubit extends Cubit<AddCommentState> {
         kCommentId: uid,
       });
 
-      emit(AddCommentSuccess());
+      emit(CommentSuccess());
     } catch (e) {
-      emit(AddCommentFailure(errorMessage: e.toString()));
+      emit(CommentFailure(errorMessage: e.toString()));
     }
   }
 

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Comments extends StatefulWidget {
-  const Comments({super.key});
-
+  const Comments({super.key, required this.type, required this.uid});
+  final String type;
+  final String uid;
   @override
   State<Comments> createState() => _CommentsState();
 }
