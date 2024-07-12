@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_clone/features/home/presentation/managers/add_comment_cubit/comment_cubit.dart';
 
 class Comments extends StatefulWidget {
   const Comments({super.key, required this.type, required this.uid});
@@ -42,7 +42,15 @@ class _CommentsState extends State<Comments> {
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(10),
                         suffixIcon: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            if (comment.text.isNotEmpty) {
+                              BlocProvider.of<CommentCubit>(context).addComment(
+                                  comment: comment.text,
+                                  type: widget.type,
+                                  uuid: widget.uid);
+                              comment.clear();
+                            }
+                          },
                           child: const Icon(Icons.send),
                         ),
                         hintText: 'Add a comment...',
