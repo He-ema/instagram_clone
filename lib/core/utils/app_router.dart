@@ -11,6 +11,7 @@ import 'package:instagram_clone/features/bottom_navigation_bar/presentation/view
 import 'package:instagram_clone/features/home/data/models/post_model.dart';
 import 'package:instagram_clone/features/home/presentation/managers/get_posts_cubit/get_posts_cubit_cubit.dart';
 import 'package:instagram_clone/features/profile/presentation/views/profile_post_view.dart';
+import 'package:instagram_clone/features/reels/presentation/managers/cubit/get_reels_cubit.dart';
 
 abstract class AppRouter {
   static const homeRoute = '/';
@@ -38,8 +39,15 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: bottomNavigationBarRoute,
-        builder: (context, state) => BlocProvider(
-          create: (context) => GetPostsCubitCubit(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => GetPostsCubitCubit(),
+            ),
+            BlocProvider(
+              create: (context) => GetReelsCubit(),
+            ),
+          ],
           child: const BottomNavigationBarView(),
         ),
       ),

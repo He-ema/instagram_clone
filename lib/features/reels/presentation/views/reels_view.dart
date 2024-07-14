@@ -14,12 +14,9 @@ class ReelsView extends StatefulWidget {
 class _ReelsViewState extends State<ReelsView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff1c1e21),
-      body: BlocProvider(
-        create: (context) => GetReelsCubit(),
-        child: const ReelsViewBody(),
-      ),
+    return const Scaffold(
+      backgroundColor: Color(0xff1c1e21),
+      body: ReelsViewBody(),
     );
   }
 }
