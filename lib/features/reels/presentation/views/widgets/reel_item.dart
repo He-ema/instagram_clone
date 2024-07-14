@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_clone/constants.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
+import 'package:instagram_clone/core/utils/common_methods/like.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
 import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart';
+import 'package:instagram_clone/features/home/presentation/views/widgets/like_animation.dart';
 import 'package:instagram_clone/features/reels/data/models/reel_model.dart';
 import 'package:video_player/video_player.dart';
 
@@ -18,7 +22,9 @@ class ReelItem extends StatefulWidget {
 class _ReelItemState extends State<ReelItem> {
   late VideoPlayerController controller;
   bool play = true;
-
+  bool isAnimating = false;
+  String user = '';
+  final _firebaseAuth = FirebaseAuth.instance;
   @override
   void initState() {
     // TODO: implement initState
@@ -31,6 +37,7 @@ class _ReelItemState extends State<ReelItem> {
             controller.setVolume(1.0);
             controller.play();
           });
+    user = _firebaseAuth.currentUser!.uid;
   }
 
   @override
@@ -46,6 +53,9 @@ class _ReelItemState extends State<ReelItem> {
       alignment: Alignment.bottomRight,
       children: [
         GestureDetector(
+          onDoubleTap: () {
+            likeAnimationMethod();
+          },
           onTap: () {
             changePlayingState();
           },
@@ -78,56 +88,95 @@ class _ReelItemState extends State<ReelItem> {
               ),
             ),
           ),
+        Center(
+          child: AnimatedOpacity(
+            opacity: isAnimating ? 1 : 0,
+            duration: const Duration(milliseconds: 200),
+            child: LikeAnimation(
+              isAnimation: isAnimating,
+              duration: const Duration(milliseconds: 400),
+              onEnd: () {
+                // WidgetsBinding.instance.addPostFrameCallback((_) {
+                //   if (mounted) {
+                //     setState(() {
+                //       isAnimating = false;
+                //     });
+                //   }
+                // });
+              },
+              child: const Icon(
+                Icons.favorite,
+                size: 100,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        ),
         Positioned(
           top: MediaQuery.sizeOf(context).height * 0.55,
           right: 10,
-          child: const Column(
+          child: Column(
             children: [
-              Icon(
-                Icons.favorite_outline,
-                color: Colors.white,
-                size: 28,
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    Like().like(
+                        like: widget.reelModel.likes,
+                        postId: widget.reelModel.postId,
+                        type: kReelsCollectionReference,
+                        uid: user);
+                  });
+                },
+                icon: Icon(
+                  widget.reelModel.likes.contains(user)
+                      ? Icons.favorite
+                      : Icons.favorite_outline,
+                  size: 30,
+                  color: widget.reelModel.likes.contains(user)
+                      ? Colors.red
+                      : Colors.white,
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 3,
               ),
               Text(
-                '0',
-                style: TextStyle(
+                widget.reelModel.likes.length.toString(),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              Icon(
+              const Icon(
                 Icons.comment,
                 color: Colors.white,
                 size: 28,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 3,
               ),
-              Text(
+              const Text(
                 '0',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              Icon(
+              const Icon(
                 Icons.send,
                 color: Colors.white,
                 size: 28,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 3,
               ),
-              Text(
+              const Text(
                 '0',
                 style: TextStyle(
                   color: Colors.white,
@@ -205,5 +254,20 @@ class _ReelItemState extends State<ReelItem> {
     } else {
       controller.pause();
     }
+  }
+
+  void likeAnimationMethod() {
+    setState(() {
+      isAnimating = true;
+      Like().like(
+          like: widget.reelModel.likes,
+          postId: widget.reelModel.postId,
+          type: kReelsCollectionReference,
+          uid: user);
+      Future.delayed(const Duration(milliseconds: 500), () {
+        isAnimating = false;
+        setState(() {});
+      });
+    });
   }
 }

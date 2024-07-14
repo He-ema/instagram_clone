@@ -11,17 +11,20 @@ class GetReelsCubit extends Cubit<GetReelsState> {
 
   Future<void> getReels() async {
     emit(GetReelsLoading());
-    try {
-      CollectionReference reelsCollection =
-          FirebaseFirestore.instance.collection(kReelsCollectionReference);
-      QuerySnapshot reelsSnapshot =
-          await reelsCollection.orderBy(kDate, descending: true).get();
-      List<ReelModel> reels = reelsSnapshot.docs
-          .map((e) => ReelModel.fromJson(e.data() as Map<String, dynamic>))
-          .toList();
-      emit(GetReelsSuccess(reels: reels));
-    } catch (e) {
-      emit(GetReelsFailure(errorMessage: e.toString()));
-    }
+    emit(GetReelsLoading());
+    CollectionReference reelsCollection =
+        FirebaseFirestore.instance.collection(kReelsCollectionReference);
+
+    reelsCollection.orderBy(kDate, descending: true).snapshots().listen(
+      (QuerySnapshot reelsSnapshot) {
+        List<ReelModel> reels = reelsSnapshot.docs
+            .map((e) => ReelModel.fromJson(e.data() as Map<String, dynamic>))
+            .toList();
+        emit(GetReelsSuccess(reels: reels));
+      },
+      onError: (e) {
+        emit(GetReelsFailure(errorMessage: e.toString()));
+      },
+    );
   }
 }
