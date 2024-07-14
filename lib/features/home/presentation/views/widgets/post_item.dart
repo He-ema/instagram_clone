@@ -73,7 +73,7 @@ class _PostItemState extends State<PostItem> {
         ),
         GestureDetector(
           onDoubleTap: () {
-            LikeAnimationMethod();
+            likeAnimationMethod();
           },
           child: Stack(
             alignment: Alignment.center,
@@ -120,7 +120,13 @@ class _PostItemState extends State<PostItem> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          LikeAnimationMethod();
+                          setState(() {
+                            Like().like(
+                                like: widget.post.likes,
+                                postId: widget.post.postId,
+                                type: kPostsCollectionReference,
+                                uid: user);
+                          });
                         },
                         icon: Icon(
                           widget.post.likes.contains(user)
@@ -235,7 +241,7 @@ class _PostItemState extends State<PostItem> {
     );
   }
 
-  void LikeAnimationMethod() {
+  void likeAnimationMethod() {
     setState(() {
       isAnimating = true;
       Like().like(
