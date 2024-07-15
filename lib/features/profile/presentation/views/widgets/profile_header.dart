@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
 import 'package:instagram_clone/features/add_post_and_reels/data/models/user_model.dart';
@@ -22,6 +23,22 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
+  bool userExists = false;
+  int addedValue = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    if (widget.user.followers
+        .contains(FirebaseAuth.instance.currentUser!.email)) {
+      setState(() {
+        userExists = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,7 +79,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                   Column(
                     children: [
                       Text(
-                        widget.user.followers.length.toString(),
+                        (widget.user.followers.length + addedValue).toString(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -117,13 +134,24 @@ class _ProfileHeaderState extends State<ProfileHeader> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13.0),
           child: CustomButton(
-            title: widget.yours ? 'Edit Your Profile' : 'Follow',
-            color: widget.yours ? Colors.grey.shade300 : Colors.blue,
-            textColor: widget.yours ? Colors.black : Colors.white,
+            title: widget.yours
+                ? 'Edit Your Profile'
+                : (userExists ? 'Unfollow' : 'Follow'),
+            color: widget.yours
+                ? Colors.grey.shade300
+                : (userExists ? Colors.grey.shade300 : Colors.blue),
+            textColor: widget.yours
+                ? Colors.black
+                : (userExists
+                    ? const Color.fromARGB(255, 54, 49, 49)
+                    : Colors.white),
             onPressed: () {
               if (!widget.yours) {
                 Follow().follow(email: widget.email);
-                setState(() {});
+                setState(() {
+                  userExists ? addedValue-- : addedValue++;
+                  userExists = !userExists;
+                });
               }
             },
           ),
