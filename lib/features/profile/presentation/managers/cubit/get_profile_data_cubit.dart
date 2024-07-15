@@ -13,23 +13,22 @@ class GetProfileDataCubit extends Cubit<GetProfileDataState> {
   GetProfileDataCubit() : super(GetProfileDataInitial());
   List<PostModel> posts = [];
 
-  Future<void> getProfileData() async {
+  Future<void> getProfileData({required String email}) async {
     emit(GetProfileDataLoading());
     try {
-      UserModel userModel = await getUser();
-      List<PostModel> posts = await getPosts();
+      UserModel userModel = await getUser(email: email);
+      List<PostModel> posts = await getPosts(email: email);
       emit(GetProfileDataSuccess(userModel: userModel, posts: posts));
     } catch (e) {
       emit(GetProfileDataFailure(errorMessage: e.toString()));
     }
   }
 
-  Future<List<PostModel>> getPosts() async {
+  Future<List<PostModel>> getPosts({required String email}) async {
     CollectionReference chat =
         FirebaseFirestore.instance.collection(kPostsCollectionReference);
-    QuerySnapshot querySnapshot = await chat
-        .where(kUserId, isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .get();
+    QuerySnapshot querySnapshot =
+        await chat.where(kEmail, isEqualTo: email).get();
 
     posts.clear();
     for (var doc in querySnapshot.docs) {
@@ -39,12 +38,11 @@ class GetProfileDataCubit extends Cubit<GetProfileDataState> {
     return posts;
   }
 
-  Future<UserModel> getUser() async {
+  Future<UserModel> getUser({required String email}) async {
     CollectionReference users =
         FirebaseFirestore.instance.collection(kUsersCollectionReference);
 
-    DocumentSnapshot user =
-        await users.doc(FirebaseAuth.instance.currentUser!.email).get();
+    DocumentSnapshot user = await users.doc(email).get();
     UserModel userModel =
         UserModel.fromJson(user.data() as Map<String, dynamic>);
     return userModel;

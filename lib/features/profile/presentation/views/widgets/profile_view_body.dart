@@ -10,8 +10,11 @@ import 'package:instagram_clone/features/profile/presentation/managers/cubit/get
 import 'package:instagram_clone/features/profile/presentation/views/widgets/profile_header.dart';
 
 class ProfileViewBody extends StatelessWidget {
-  const ProfileViewBody({super.key});
-
+  const ProfileViewBody({
+    super.key,
+    required this.yours,
+  });
+  final bool yours;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetProfileDataCubit, GetProfileDataState>(
@@ -21,6 +24,7 @@ class ProfileViewBody extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: ProfileHeader(
+                  yours: yours,
                   user: state.userModel,
                   posts: state.posts.length,
                 ),

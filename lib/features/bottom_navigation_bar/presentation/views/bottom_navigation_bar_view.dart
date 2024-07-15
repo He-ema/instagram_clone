@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
@@ -100,12 +101,14 @@ class _BottomNavigationBarViewState extends State<BottomNavigationBarView> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: const [
-          HomeView(),
-          ExploreView(),
-          AddView(),
-          ReelsView(),
-          ProfileView(),
+        children: [
+          const HomeView(),
+          const ExploreView(),
+          const AddView(),
+          const ReelsView(),
+          ProfileView(
+            email: FirebaseAuth.instance.currentUser!.email!,
+          ),
         ],
       ),
     );

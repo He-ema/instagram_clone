@@ -9,11 +9,13 @@ class CustomButton extends StatelessWidget {
       this.image,
       this.onPressed,
       this.color,
-      this.border});
+      this.border,
+      this.textColor});
   final String title;
   final String? image;
   final Color? color;
   final bool? border;
+  final Color? textColor;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,8 @@ class CustomButton extends StatelessWidget {
                 title,
                 style: color == null
                     ? AppStyles.styleMedium12
-                    : const TextStyle(
-                        color: Color.fromARGB(255, 65, 48, 48),
+                    : TextStyle(
+                        color: textColor ?? Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
               )

@@ -8,6 +8,7 @@ import 'package:instagram_clone/core/utils/common_widgets/instagram_loader.dart'
 import 'package:instagram_clone/features/explore/presentation/managers/explore_cubit/explore_cubit.dart';
 import 'package:instagram_clone/features/explore/presentation/managers/get_users_cubit/get_users_cubit_cubit.dart';
 import 'package:instagram_clone/features/explore/presentation/views/widgets/explore_text_field.dart';
+import 'package:instagram_clone/features/profile/presentation/views/profile_view.dart';
 
 class ExploreViewBody extends StatefulWidget {
   const ExploreViewBody({super.key});
@@ -116,20 +117,27 @@ class _ExploreViewBodyState extends State<ExploreViewBody> {
                   return Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 25,
-                          backgroundImage:
-                              NetworkImage(state.users[index].image),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          state.users[index].userName,
-                        ),
-                      ],
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileView(email: state.users[index].email)));
+                      },
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            backgroundImage:
+                                NetworkImage(state.users[index].image),
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            state.users[index].userName,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }));

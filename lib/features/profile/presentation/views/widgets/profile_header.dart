@@ -8,9 +8,11 @@ class ProfileHeader extends StatelessWidget {
     super.key,
     required this.user,
     required this.posts,
+    required this.yours,
   });
   final UserModel user;
   final int posts;
+  final bool yours;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -106,8 +108,9 @@ class ProfileHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13.0),
           child: CustomButton(
-            title: 'Edit Your Profile',
-            color: Colors.grey.shade300,
+            title: yours ? 'Edit Your Profile' : 'Follow',
+            color: yours ? Colors.grey.shade300 : Colors.blue,
+            textColor: yours ? Colors.black : Colors.white,
             onPressed: () {},
           ),
         ),
