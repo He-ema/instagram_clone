@@ -4,11 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/core/utils/assets.dart';
 
 class ExploreTextField extends StatelessWidget {
-  const ExploreTextField({super.key, required this.search});
+  const ExploreTextField({super.key, required this.search, this.onChanged});
   final TextEditingController search;
+  final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       controller: search,
       textAlign: TextAlign.start,
 
