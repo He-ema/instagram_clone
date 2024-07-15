@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:instagram_clone/features/profile/presentation/managers/cubit/get_profile_data_cubit.dart';
+import 'package:instagram_clone/features/profile/presentation/managers/get_profile_data_cubit/get_profile_data_cubit.dart';
 import 'package:instagram_clone/features/profile/presentation/views/widgets/profile_view_body.dart';
 
 class ProfileView extends StatefulWidget {
@@ -44,6 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
               email: widget.email,
             ),
           child: ProfileViewBody(
+            email: widget.email,
             yours: yours,
           ),
         )),

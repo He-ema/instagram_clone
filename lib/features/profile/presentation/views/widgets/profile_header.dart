@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
 import 'package:instagram_clone/features/add_post_and_reels/data/models/user_model.dart';
 import 'package:instagram_clone/features/auth/presentation/views/widgets/custom_button.dart';
+import 'package:instagram_clone/features/profile/presentation/managers/follow.dart';
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends StatefulWidget {
   const ProfileHeader({
     super.key,
     required this.user,
     required this.posts,
     required this.yours,
+    required this.email,
   });
   final UserModel user;
   final int posts;
   final bool yours;
+  final String email;
+
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +37,7 @@ class ProfileHeader extends StatelessWidget {
                   width: 80,
                   height: 80,
                   child: Container(
-                    child: CachedImage(imageUrl: user.image),
+                    child: CachedImage(imageUrl: widget.user.image),
                   ),
                 ),
               ),
@@ -40,7 +49,7 @@ class ProfileHeader extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        posts.toString(),
+                        widget.posts.toString(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -53,7 +62,7 @@ class ProfileHeader extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        user.followers.length.toString(),
+                        widget.user.followers.length.toString(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -66,7 +75,7 @@ class ProfileHeader extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        user.following.length.toString(),
+                        widget.user.following.length.toString(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -87,7 +96,7 @@ class ProfileHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                user.userName,
+                widget.user.userName,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
               ),
@@ -95,7 +104,7 @@ class ProfileHeader extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                user.bio,
+                widget.user.bio,
                 style: const TextStyle(
                     fontWeight: FontWeight.normal, fontSize: 12),
               ),
@@ -108,10 +117,15 @@ class ProfileHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13.0),
           child: CustomButton(
-            title: yours ? 'Edit Your Profile' : 'Follow',
-            color: yours ? Colors.grey.shade300 : Colors.blue,
-            textColor: yours ? Colors.black : Colors.white,
-            onPressed: () {},
+            title: widget.yours ? 'Edit Your Profile' : 'Follow',
+            color: widget.yours ? Colors.grey.shade300 : Colors.blue,
+            textColor: widget.yours ? Colors.black : Colors.white,
+            onPressed: () {
+              if (!widget.yours) {
+                Follow().follow(email: widget.email);
+                setState(() {});
+              }
+            },
           ),
         ),
         const SizedBox(
