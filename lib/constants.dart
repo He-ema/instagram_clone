@@ -1,5 +1,6 @@
 const kUsersCollectionReference = 'users';
 const kReelsCollectionReference = 'reels';
+const kStoriesCollectionReference = 'stories';
 const kEmail = 'email';
 const kUserName = 'userName';
 const kBio = 'bio';
@@ -18,3 +19,4 @@ const kComment = 'comment';
 const kUserProfileImage = 'profileImage';
 const kPostsCollectionReference = 'posts';
 const kCommentsCollectionReference = 'comments';
+const kStories = 'stories';

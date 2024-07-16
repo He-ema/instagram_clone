@@ -46,6 +46,7 @@ dependencies:
   image_picker: ^1.1.2
   modal_progress_hud_nsn: ^0.5.1
   photo_manager: ^3.2.0
+  story: ^1.1.0
   uuid: ^4.4.0
   video_player: ^2.9.1
 
