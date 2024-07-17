@@ -110,39 +110,39 @@ class _AddPostViewState extends State<AddPostView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.5,
-              child: GridView.builder(
-                itemCount: _mediaList.isEmpty ? _mediaList.length : 1,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 1,
-                ),
-                itemBuilder: (context, index) {
-                  return _mediaList[indexx];
-                },
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 40,
-              color: Colors.white,
-              child: const Row(
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Recent',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   height: MediaQuery.sizeOf(context).height * 0.5,
+            //   child: GridView.builder(
+            //     itemCount: _mediaList.isEmpty ? _mediaList.length : 1,
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 1,
+            //       mainAxisSpacing: 1,
+            //       crossAxisSpacing: 1,
+            //     ),
+            //     itemBuilder: (context, index) {
+            //       return _mediaList[indexx];
+            //     },
+            //   ),
+            // ),
+            // Container(
+            //   width: double.infinity,
+            //   height: 40,
+            //   color: Colors.white,
+            //   child: const Row(
+            //     children: [
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Text(
+            //         'Recent',
+            //         style: TextStyle(
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.w600,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -160,7 +160,16 @@ class _AddPostViewState extends State<AddPostView> {
                         _file = path[index];
                       });
                     },
-                    child: _mediaList[index]);
+                    child: Container(
+                        decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: index == indexx
+                                  ? Colors.blue
+                                  : Colors.transparent,
+                              width: 3),
+                        )),
+                        child: _mediaList[index]));
               },
             ),
           ],
