@@ -26,8 +26,10 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
+
       print('auth done ');
       String file = await uploadImageToFirebase(image: image, email: email);
+      FirebaseAuth.instance.currentUser!.updatePhotoURL(file);
       print('upload done ');
 
       await createUser(email: email, userName: userName, bio: bio, image: file);

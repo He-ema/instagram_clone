@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/core/utils/common_widgets/cached_image.dart';
 import 'package:instagram_clone/features/home/presentation/managers/upload_story.dart';
 
@@ -7,9 +10,11 @@ class StoryItem extends StatelessWidget {
     super.key,
     this.yours = false,
     required this.image,
+    required this.isThereAstory,
   });
   final bool yours;
   final String image;
+  final bool isThereAstory;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,28 +22,21 @@ class StoryItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.all(4),
-            decoration: const ShapeDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xFFF58529), // Orange
-                Color(0xFFDD2A7B), // Red-pink
-                Color(0xFF8134AF), // Purple
-                Color(0xFF515BD4), // Blue
-                Color(0xFF405DE6), // Indigo
-                Color(0xFF5851DB), // Deep blue
-                Color(0xFFC13584), // Magenta
-                Color(0xFF833AB4), // Purple
-                Color(0xFFFD1D1D), // Red
-                Color(0xFFF56040), // Orange-red
-              ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-              shape: CircleBorder(),
-            ),
-            child: CircleAvatar(
-              radius: 35,
-              backgroundColor: Colors.white,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: CachedImage(imageUrl: image)),
+            padding: const EdgeInsets.all(3),
+            decoration: ShapeDecoration(
+                color: isThereAstory
+                    ? Colors.deepPurpleAccent
+                    : Colors.transparent,
+                shape: const CircleBorder()),
+            child: Container(
+              width: 80,
+              padding: const EdgeInsets.all(10),
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(image),
+                    fit: BoxFit.cover),
+                shape: const CircleBorder(),
+              ),
             ),
           ),
           if (yours)
