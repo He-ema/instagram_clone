@@ -8,8 +8,9 @@ import 'package:story/story_page_view.dart';
 import '../../../data/models/story_model.dart';
 
 class StoryViewBody extends StatelessWidget {
-  const StoryViewBody({super.key, required this.stories});
+  const StoryViewBody({super.key, required this.stories, this.index});
   final List<StoryModel> stories;
+  final int? index;
   @override
   Widget build(BuildContext context) {
     return StoryPageView(
@@ -18,6 +19,7 @@ class StoryViewBody extends StatelessWidget {
       storyLength: (pageIndex) {
         return stories[pageIndex].stories.length;
       },
+      initialPage: index ?? 0,
       itemBuilder: (context, pageIndex, storyIndex) {
         return Container(
           color: Colors.black,

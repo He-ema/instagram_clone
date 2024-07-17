@@ -52,6 +52,7 @@ class StoryListView extends StatelessWidget {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => StoryView(
                             stories: state.stories,
+                            index: index,
                           ),
                         ));
                       },
